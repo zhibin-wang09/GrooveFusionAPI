@@ -1,13 +1,31 @@
 package com.zhibin.audioapi.mixed_audio;
 
+import jakarta.persistence.*;
+
 import java.io.FileInputStream;
 import java.time.LocalDate;
 
+@Entity // map this object to a table in database
+@Table(name = "mixed_audios")
 public class MixedAudios {
+    @Id
+    @SequenceGenerator(
+            name = "audio_sequence",
+            sequenceName = "audioSequence",
+            allocationSize= 1
+    )
+    @GeneratedValue(
+            strategy =GenerationType.SEQUENCE,
+            generator = "audio_sequence"
+    )
+    @Column(name = "id")
     private int id;
+    @Column(name ="producer_name")
     private String producerName;
+    @Column(name = "produced_date")
     private LocalDate date;
-    private FileInputStream data;
+    @Column(name = "audios")
+    private byte[] data;
 
     @Override
     public String toString() {
@@ -19,22 +37,20 @@ public class MixedAudios {
                 '}';
     }
 
-    public MixedAudios(String producerName, LocalDate date, FileInputStream data) {
+    public MixedAudios(String producerName, LocalDate date, byte[] data) {
         this.producerName = producerName;
         this.date = date;
         this.data = data;
     }
 
-    public MixedAudios(int id, String producerName, LocalDate date, FileInputStream data) {
+    public MixedAudios(int id, String producerName, LocalDate date, byte[] data) {
         this.id = id;
         this.producerName = producerName;
         this.date = date;
         this.data = data;
     }
 
-    public MixedAudios(){
-
-    }
+    protected MixedAudios(){}
 
     public int getId() {
         return id;
@@ -52,7 +68,7 @@ public class MixedAudios {
         this.date = date;
     }
 
-    public void setData(FileInputStream data) {
+    public void setData(byte[] data) {
         this.data = data;
     }
 
@@ -64,7 +80,7 @@ public class MixedAudios {
         return date;
     }
 
-    public FileInputStream getData() {
+    public byte[] getData() {
         return data;
     }
 
