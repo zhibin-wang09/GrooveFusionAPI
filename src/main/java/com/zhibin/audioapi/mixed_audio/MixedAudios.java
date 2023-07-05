@@ -37,6 +37,7 @@ public class MixedAudios {
     }
 
     private String formatData(){
+        if(data == null) return null;
         StringBuilder s = new StringBuilder();
         for(byte b : data){
             s.append(String.format("%02X ", b)); // format to hexadecimal
@@ -55,6 +56,12 @@ public class MixedAudios {
         this.producerName = producerName;
         this.date = date;
         this.data = data;
+    }
+
+    public MixedAudios(String producerName, byte[] data) {
+        this.producerName = producerName;
+        this.data = data;
+        this.date = LocalDate.now();
     }
 
     protected MixedAudios(){}
