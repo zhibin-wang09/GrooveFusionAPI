@@ -2,7 +2,6 @@ package com.zhibin.audioapi.mixed_audio;
 
 import jakarta.persistence.*;
 
-import java.io.FileInputStream;
 import java.time.LocalDate;
 
 @Entity // map this object to a table in database
@@ -19,7 +18,7 @@ public class MixedAudios {
             generator = "audio_sequence"
     )
     @Column(name = "id")
-    private int id;
+    private long id;
     @Column(name ="producer_name")
     private String producerName;
     @Column(name = "produced_date")
@@ -33,8 +32,16 @@ public class MixedAudios {
                 "id=" + id +
                 ", producerName='" + producerName + '\'' +
                 ", date=" + date +
-                ", data=" + data +
+                ", data=" + formatData() +
                 '}';
+    }
+
+    private String formatData(){
+        StringBuilder s = new StringBuilder();
+        for(byte b : data){
+            s.append(String.format("%02X ", b)); // format to hexadecimal
+        }
+        return s.toString();
     }
 
     public MixedAudios(String producerName, LocalDate date, byte[] data) {
@@ -52,7 +59,7 @@ public class MixedAudios {
 
     protected MixedAudios(){}
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
