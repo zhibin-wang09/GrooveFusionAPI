@@ -3,8 +3,9 @@ package com.zhibin.audioapi.mixed_audio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class MixedAudiosService {
 
@@ -18,5 +19,17 @@ public class MixedAudiosService {
 
     public List<MixedAudios> getMixedAudios(){
         return mixedAudiosRepository.findAll();
+    }
+
+    public Optional<MixedAudios> findAudioById(Long id){
+        return mixedAudiosRepository.findById(id);
+    }
+
+    public void addNewMixedAudio(MixedAudios audios){
+        mixedAudiosRepository.save(audios);
+    }
+
+    public void deleteMixedAudio(Long id){
+        mixedAudiosRepository.deleteById(id);
     }
 }
